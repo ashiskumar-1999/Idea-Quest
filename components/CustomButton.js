@@ -1,7 +1,7 @@
 import React from "react"
 import { Box } from "@chakra-ui/react"
 
-const Button = ({ label, onClick }) => {
+const CustomButton = ({ label, onClick }) => {
   return (
     <Box
       as="button"
@@ -19,4 +19,4 @@ const Button = ({ label, onClick }) => {
   )
 }
 
-export default Button
+export default CustomButton

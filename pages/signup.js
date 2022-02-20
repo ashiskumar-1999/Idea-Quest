@@ -1,12 +1,13 @@
 import React, { useState } from "react"
 import { Box, FormControl, FormLabel, Input, Image } from "@chakra-ui/react"
 import FormCard from "../components/FormCard"
-import Button from "../components/Button"
 import PageLayout from "../components/PageLayout"
+import CustomButton from "../components/CustomButton"
 
 const SignupForm = () => {
   const [email, setEmail] = useState("")
-  const [name, setName] = useState("")
+  const [firstname, setFirstName] = useState("")
+  const [lastname, setLastName] = useState("")
   const [role, setRole] = useState("")
   const [password, setPassword] = useState("")
   return (
@@ -26,7 +27,7 @@ const SignupForm = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <FormLabel htmlFor="email" fontWeight="bold">
-          Your Name
+          First Name
         </FormLabel>
         <Input
           id="name"
@@ -35,9 +36,24 @@ const SignupForm = () => {
           borderRadius="none"
           placeholder="Mike North"
           boxShadow="base"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={firstname}
+          onChange={(e) => setFirstName(e.target.value)}
         />
+
+        <FormLabel htmlFor="email" fontWeight="bold">
+          Last Name
+        </FormLabel>
+        <Input
+          id="name"
+          type="text"
+          bg="#ffffff"
+          borderRadius="none"
+          placeholder="Mike North"
+          boxShadow="base"
+          value={lastname}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+        {/* 
         <FormLabel htmlFor="email" fontWeight="bold">
           Background
         </FormLabel>
@@ -50,7 +66,7 @@ const SignupForm = () => {
           boxShadow="base"
           value={role}
           onChange={(e) => setRole(e.target.value)}
-        />
+        /> */}
         <FormLabel htmlFor="email" fontWeight="bold">
           Password
         </FormLabel>
@@ -61,7 +77,9 @@ const SignupForm = () => {
           borderRadius="none"
           placeholder="*******"
           boxShadow="base"
+          onChange={(e) => setPassword(e.target.value)}
         />
+        {/* 
         <FormLabel htmlFor="email" fontWeight="bold">
           Confirm Password
         </FormLabel>
@@ -72,10 +90,10 @@ const SignupForm = () => {
           borderRadius="none"
           placeholder="*******"
           boxShadow="base"
-        />
+        /> */}
       </FormControl>
       <Box mt="30px">
-        <Button label="Sign up" onClick />
+        <CustomButton label="Sign up" onClick />
       </Box>
     </form>
   )

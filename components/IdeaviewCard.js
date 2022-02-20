@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react"
-import { Box, Heading, Text } from "@chakra-ui/react"
-import { MdOutlineKeyboardArrowUp } from "react-icons"
-import Button from "../components/Button"
+import { Box, Button, Heading, Text, VStack } from "@chakra-ui/react"
+import { IoIosArrowUp } from "react-icons/io"
 
-const IdeaviewCard = ({ heading, description, count }) => {
+const IdeaviewCard = ({ heading, description }) => {
   return (
-    <Box
+    <Button
       w="100%"
       h="50px"
       p="30px"
@@ -15,16 +14,23 @@ const IdeaviewCard = ({ heading, description, count }) => {
       borderColor="#F6EFEF"
       boxShadow="md"
     >
-      <Heading fontSize="2xl">{heading}</Heading>
-      <Text fontSize="lg" isTruncated>
-        {description}
-      </Text>
-
+      <Box textAlign="left">
+        <Heading fontSize={["lg", "lg", "xl", "xl", "2xl"]}>{heading}</Heading>
+        <Text
+          fontSize={["md", "md", "lg", "lg", "lg"]}
+          fontWeight="normal"
+          isTruncated
+        >
+          {description}
+        </Text>
+      </Box>
       <Button>
-        <MdOutlineKeyboardArrowUp />
-        {count}
+        <VStack>
+          <IoIosArrowUp />
+          <Text fontWeight="bold">100</Text>
+        </VStack>
       </Button>
-    </Box>
+    </Button>
   )
 }
 

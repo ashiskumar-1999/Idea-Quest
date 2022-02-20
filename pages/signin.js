@@ -1,12 +1,29 @@
 import React, { useState } from "react"
 import { Box, FormControl, FormLabel, Input, Image } from "@chakra-ui/react"
-import Button from "../components/Button"
+import CustomButton from "../components/CustomButton"
 import PageLayout from "../components/PageLayout"
 import FormCard from "../components/FormCard"
 
 const SigninForm = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
+  const handleLogin = async () => {
+    const response = await fetch(
+      "https://ideas-iq.herokuapp.com/api/auth/login",
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      }
+    )
+    let userdata = response.json()
+    console.log(userdata)
+  }
+
   return (
     <form>
       <FormControl isRequired>
@@ -40,7 +57,7 @@ const SigninForm = () => {
       </FormControl>
 
       <Box mt="30px">
-        <Button label="Sign up" onClick />
+        <CustomButton label="Sign In" onClick={() => handleLogin} />
       </Box>
     </form>
   )
