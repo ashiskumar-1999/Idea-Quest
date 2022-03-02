@@ -1,10 +1,9 @@
 import React from "react"
-import { Box } from "@chakra-ui/react"
+import { Button } from "@chakra-ui/react"
 
 const CustomButton = ({ label, onClick }) => {
   return (
-    <Box
-      as="button"
+    <Button
       w="150px"
       h="40px"
       bg="#15DB95"
@@ -15,7 +14,7 @@ const CustomButton = ({ label, onClick }) => {
       onClick={onClick}
     >
       {label}
-    </Box>
+    </Button>
   )
 }
 

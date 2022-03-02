@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import axios from "axios"
 import { Box, FormControl, FormLabel, Input, Image } from "@chakra-ui/react"
 import CustomButton from "../components/CustomButton"
 import PageLayout from "../components/PageLayout"
@@ -9,19 +10,21 @@ const SigninForm = () => {
   const [password, setPassword] = useState("")
 
   const handleLogin = async () => {
-    const response = await fetch(
+    let response = await axios.post(
       "https://ideas-iq.herokuapp.com/api/auth/login",
       {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
+        email,
+        password,
       }
     )
-    let userdata = response.json()
-    console.log(userdata)
+    console.log(response.data)
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        "token",
+        JSON.stringify(response.data.success.data.token)
+      )
+    }
   }
 
   return (
@@ -40,7 +43,6 @@ const SigninForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-
         <FormLabel htmlFor="email" fontWeight="bold">
           Password
         </FormLabel>
@@ -54,11 +56,10 @@ const SigninForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <Box mt="30px">
+          <CustomButton label="Sign In" onClick={handleLogin} />
+        </Box>
       </FormControl>
-
-      <Box mt="30px">
-        <CustomButton label="Sign In" onClick={() => handleLogin} />
-      </Box>
     </form>
   )
 }

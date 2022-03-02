@@ -24,6 +24,7 @@ function Navbar() {
   return (
     <Flex w="100%" direction="row" justifyContent="space-between" mb="30px">
       <Image src="Logo.svg" alt="logo" />
+
       <CredentialSection />
     </Flex>
   )

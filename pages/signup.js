@@ -3,13 +3,27 @@ import { Box, FormControl, FormLabel, Input, Image } from "@chakra-ui/react"
 import FormCard from "../components/FormCard"
 import PageLayout from "../components/PageLayout"
 import CustomButton from "../components/CustomButton"
+import axios from "axios"
 
 const SignupForm = () => {
   const [email, setEmail] = useState("")
   const [firstname, setFirstName] = useState("")
   const [lastname, setLastName] = useState("")
-  const [role, setRole] = useState("")
+  /*  const [role, setRole] = useState("") */
   const [password, setPassword] = useState("")
+
+  const handleSignup = async () => {
+    let response = await axios.post(
+      "https://ideas-iq.herokuapp.com/api/auth/signup",
+      {
+        email,
+        firstname,
+        lastname,
+        password,
+      }
+    )
+    console.log(response)
+  }
   return (
     <form>
       <FormControl isRequired>
@@ -77,6 +91,7 @@ const SignupForm = () => {
           borderRadius="none"
           placeholder="*******"
           boxShadow="base"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         {/* 
@@ -93,7 +108,7 @@ const SignupForm = () => {
         /> */}
       </FormControl>
       <Box mt="30px">
-        <CustomButton label="Sign up" onClick />
+        <CustomButton label="Sign up" onClick={handleSignup} />
       </Box>
     </form>
   )
