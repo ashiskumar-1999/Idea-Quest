@@ -11,6 +11,8 @@ const CustomButton = ({ label, onClick }) => {
       borderRadius="10px"
       fontSize="18px"
       fontWeight="bold"
+      _hover={{ bg: "#15DB95" }}
+      _focus={{ borderColor: "none" }}
       onClick={onClick}
     >
       {label}

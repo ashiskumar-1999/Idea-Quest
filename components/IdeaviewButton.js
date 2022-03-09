@@ -22,7 +22,8 @@ const IdeaviewButton = ({ title, description, upvotes, downvotes }) => {
       borderColor="#F6EFEF"
       boxShadow="md"
       _hover={{ bg: "#ffffff" }}
-      _focus={{ bg: "none", borderColor: "none" }}
+      _focus={{ borderColor: "none" }}
+      _active={{ bg: "none" }}
     >
       <Box textAlign="left">
         <Heading fontSize={["lg", "lg", "xl", "xl", "2xl"]}>{title}</Heading>
@@ -35,30 +36,19 @@ const IdeaviewButton = ({ title, description, upvotes, downvotes }) => {
         </Text>
       </Box>
       <HStack>
-        {/* <Button
-          bg="#ffffff"
-          borderRadius="5px"
-          _hover={{ bg: "#ffffff" }}
-          _focus={{ bg: "none", borderColor: "none" }}
-          onClick={IncreaseCount}
-        > */}
         <VStack>
-          <IoIosArrowUp />
-          <Text fontWeight="bold">{upvotes}</Text>
+          <IoIosArrowUp color="#15DB95" />
+          <Text fontWeight="bold" color="#15DB95">
+            {upvotes}
+          </Text>
         </VStack>
-        {/*  </Button>
-        <Button
-          bg="#ffffff"
-          borderRadius="5px"
-          _hover={{ bg: "#ffffff" }}
-          _focus={{ bg: "none", borderColor: "none" }}
-          onClick={DecreaseCount}
-        > */}
+
         <VStack>
-          <IoIosArrowDown />
-          <Text fontWeight="bold">{downvotes}</Text>
+          <IoIosArrowDown color="#FD4242" />
+          <Text fontWeight="bold" color="#FD4242">
+            {downvotes}
+          </Text>
         </VStack>
-        {/* </Button> */}
       </HStack>
     </Button>
   )
