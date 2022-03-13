@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState,useRef, useEffect } from "react"
 import {
   Button,
   FormControl,
@@ -17,30 +17,38 @@ import CustomButton from "./CustomButton"
 import axios from "axios"
 
 const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
-  const initialRef = React.useRef()
-  const finalRef = React.useRef()
+  const initialRef = useRef()
+  const finalRef = useRef()
   const [title, setTitle] = useState()
   const [description, setDescription] = useState()
   const [solvedProblem, setSolvedProblem] = useState()
+  const [ideator, setIdeator] = useState()
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    
+    setIdeator(userId);
+    console.log('ideator:', ideator);
+  }, [ideator]);
 
   const HandleCreate = async () => {
-    let token = JSON.parse(localStorage.getItem("token"))
-
     let config = {
-      header: {
-        Authorization: token,
+      headers: {
+        'Content-Type': 'application/json',
+        'content-length': "",
+        'host':"",
       },
       body: {
         title,
         description,
-        solvedProblem,
+        ideator,
       },
     }
     let response = await axios.post(
       "https://ideas-iq.herokuapp.com/api/ideas",
       config
-    )
-    console.log(response)
+    ).then(() => console.log(response.data))
+    .catch((err) => console.log(err));
   }
 
   return (

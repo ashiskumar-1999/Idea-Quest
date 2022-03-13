@@ -1,4 +1,4 @@
-import React from "react"
+import React,{useState,useEffect} from "react"
 import {
   Box,
   Flex,
@@ -53,11 +53,20 @@ const DashboardSection = () => {
   )
 }
 function Navbar() {
+  const [token,setToken] = useState()
+  useEffect(() => {
+    let token = localStorage.getItem('token')
+    setToken(token)
+    
+  },[])
+  
   return (
     <Flex w="100%" direction="row" justifyContent="space-between" mb="30px">
       <Image src="Logo.svg" alt="logo" />
-
-      <DashboardSection />
+{
+  token ?  
+  <DashboardSection />:<CredentialSection/>
+}
     </Flex>
   )
 }

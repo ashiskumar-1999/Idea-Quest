@@ -4,10 +4,13 @@ import { Box, FormControl, FormLabel, Input, Image } from "@chakra-ui/react"
 import CustomButton from "../components/CustomButton"
 import PageLayout from "../components/PageLayout"
 import FormCard from "../components/FormCard"
+import { useRouter } from "next/router"
+
 
 const SigninForm = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const router = useRouter()
 
   const handleLogin = async () => {
     let response = await axios.post(
@@ -18,14 +21,24 @@ const SigninForm = () => {
       }
     )
     console.log(response.data)
-
     if (typeof window !== "undefined") {
       localStorage.setItem(
         "token",
         JSON.stringify(response.data.success.data.token)
       )
+      localStorage.setItem(
+        "userId",
+        response.data.success.data.loggedInUserId
+      )
     }
   }
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if(token){
+      router.push('/dashboard')
+    }
+  }
+  ,[router])
 
   return (
     <form>
