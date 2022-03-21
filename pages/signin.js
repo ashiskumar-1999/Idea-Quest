@@ -11,8 +11,10 @@ const SigninForm = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const router = useRouter()
+  const [token, setToken] = useState('')
 
   const handleLogin = async () => {
+
     let response = await axios.post(
       "https://ideas-iq.herokuapp.com/api/auth/login",
       {
@@ -30,15 +32,17 @@ const SigninForm = () => {
         "userId",
         response.data.success.data.loggedInUserId
       )
+      const token = localStorage.getItem('token')
+      setToken(token)
     }
+    
   }
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if(token){
-      router.push('/dashboard')
-    }
+  if(token){
+    router.push('/dashboard')
   }
-  ,[router])
+    
+    
+  
 
   return (
     <form>

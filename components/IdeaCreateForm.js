@@ -20,7 +20,7 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
   const initialRef = useRef()
   const finalRef = useRef()
   const [title, setTitle] = useState()
-  const [description, setDescription] = useState()
+  const [desc, setDesc] = useState()
   const [solvedProblem, setSolvedProblem] = useState()
   const [ideator, setIdeator] = useState()
 
@@ -31,24 +31,32 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
     console.log('ideator:', ideator);
   }, [ideator]);
 
+  const data = JSON.stringify({
+    title: title,
+    desc: desc,
+    solvedProblem: solvedProblem,
+    ideator: ideator,
+  });
+
   const HandleCreate = async () => {
     let config = {
       headers: {
-        'Content-Type': 'application/json',
-        'content-length': "",
-        'host':"",
+        'Content-Type': 'application/json', // 
+        'Content-Length': 100,
       },
-      body: {
-        title,
-        description,
-        ideator,
-      },
+      // data: {
+      //   title,
+      //   desc,
+      //   solvedProblem,
+      //   ideator,
+      // },
     }
     let response = await axios.post(
       "https://ideas-iq.herokuapp.com/api/ideas",
+      data,
       config
-    ).then(() => console.log(response.data))
-    .catch((err) => console.log(err));
+    ) .then((res) => res.json())
+      .catch((err) => console.log(err))
   }
 
   return (
@@ -67,7 +75,6 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
             <FormControl>
               <FormLabel>Title</FormLabel>
               <Input
-                ref={initialRef}
                 placeholder="Title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -78,8 +85,8 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
               <FormLabel>Description</FormLabel>
               <Textarea
                 placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={desc}
+                onChange={(e) => setDesc(e.target.value)}
               />
             </FormControl>
 

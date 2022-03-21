@@ -5,21 +5,23 @@ import Navbar from "../components/Navbar"
 import { useRouter } from "next/router"
 import HeroSection from "../components/HeroSection"
 import WhySection from "../components/WhySection"
+import IdeaViewPage from "../components/IdeaViewPage"
 
 export default function Home() {
   const router = useRouter()
   const [token,setToken] = useState()
 
-/*   useEffect(() => {
+  useEffect(() => {
     let token = localStorage.getItem('token')
     setToken(token)
-    token? router.push('/dashboard'): 
-  },[router]) */
+    token && router.push('/dashboard')
+  },[router])
   return (
     <>
       <PageLayout isDirection>
-      <HeroSection/>
-      <WhySection/>
+        <HeroSection/>
+        <WhySection/>
+        <IdeaViewPage/>
       </PageLayout>
     </>
   )

@@ -1,7 +1,7 @@
 import React from "react"
 import { Button } from "@chakra-ui/react"
 
-const CustomButton = ({ label, onClick }) => {
+const CustomButton = ({ label, onClick,...props }) => {
   return (
     <Button
       w="150px"
@@ -11,9 +11,10 @@ const CustomButton = ({ label, onClick }) => {
       borderRadius="10px"
       fontSize="18px"
       fontWeight="bold"
-      _hover={{ bg: "#15DB95" }}
+      _hover={{textColor:"#ffffff"}}
       _focus={{ borderColor: "none" }}
       onClick={onClick}
+      {...props}
     >
       {label}
     </Button>
