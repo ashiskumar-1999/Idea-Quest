@@ -13,7 +13,7 @@ import CustomButton from "./CustomButton";
 
 const IdeaViewPage = ({
   title,
-  description,
+  desc,
   solvedProblem,
   upvotes,
   downvotes,
@@ -34,7 +34,7 @@ const IdeaViewPage = ({
       <HStack spacing={900} p="10px">
         <Box>
           <Heading fontSize={["2xl", "2xl", "3xl", "3xl", "4xl"]}>
-            Title
+            {title}
           </Heading>
         </Box>
         <HStack spacing={6}>
@@ -47,7 +47,7 @@ const IdeaViewPage = ({
         <Heading fontSize={["lg", "xl", "2xl", "2xl", "3xl"]}>
           Description
         </Heading>
-        <Text textAlign="left">{description}</Text>
+        <Text textAlign="left">{desc}</Text>
       </Box>
       <Box w="100%" textAlign="left" py="20px">
         <Heading fontSize={["lg", "lg", "xl", "xl", "2xl"]} textAlign="left">

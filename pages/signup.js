@@ -4,6 +4,8 @@ import FormCard from "../components/FormCard"
 import PageLayout from "../components/PageLayout"
 import CustomButton from "../components/CustomButton"
 import axios from "axios"
+import {useRouter} from 'next/router'
+import { useEffect } from "react/cjs/react.production.min"
 
 const SignupForm = () => {
   const [email, setEmail] = useState("")
@@ -11,6 +13,7 @@ const SignupForm = () => {
   const [lastname, setLastName] = useState("")
   /*  const [role, setRole] = useState("") */
   const [password, setPassword] = useState("")
+  const router = useRouter
 
   const handleSignup = async () => {
     let response = await axios.post(
@@ -22,8 +25,12 @@ const SignupForm = () => {
         password,
       }
     )
-    console.log(response)
+    console.log(response.data.success.statusCode)
+    if(response.data.success.statusCode){
+      router.push('/signin')
+    }
   }
+    
   return (
     <form>
       <FormControl isRequired>
@@ -120,7 +127,6 @@ const Signup = () => {
       <Box maxW="40%">
         <Image src="/Signupillustartion.png" alt="Signup Illustration" />
       </Box>
-
       <FormCard>
         <SignupForm />
       </FormCard>

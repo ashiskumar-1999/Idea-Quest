@@ -9,11 +9,9 @@ import IdeaViewPage from "../components/IdeaViewPage"
 
 export default function Home() {
   const router = useRouter()
-  const [token,setToken] = useState()
 
   useEffect(() => {
     let token = localStorage.getItem('token')
-    setToken(token)
     token && router.push('/dashboard')
   },[router])
   return (

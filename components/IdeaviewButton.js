@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Box, Button, Heading, HStack, Text, VStack } from "@chakra-ui/react"
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io"
 
-const IdeaviewButton = ({ title, description, upvotes, downvotes }) => {
+const IdeaviewButton = ({ title, description, upvotes, downvotes,onClick }) => {
   /* const [upvotes, setUpvote] = useState(0)
   const [downvotes, setDownvote] = useState(0)
 
@@ -13,8 +13,8 @@ const IdeaviewButton = ({ title, description, upvotes, downvotes }) => {
     <Button
       w="100%"
       h="50px"
-      p="30px"
-      mt="30px"
+      p={["10px","10px","30px","30px","30px"]}
+      mt={["20px","20px","30px","30px","30px"]}
       justifyContent="space-between"
       alignItems="center"
       bg="#ffffff"
@@ -24,8 +24,9 @@ const IdeaviewButton = ({ title, description, upvotes, downvotes }) => {
       _hover={{ bg: "#ffffff" }}
       _focus={{ borderColor: "none" }}
       _active={{ bg: "none" }}
+      onClick={onClick}
     >
-      <Box textAlign="left">
+      <Box textAlign="left" w={["80%","80%","80%","90%","100%"]}>
         <Heading fontSize={["lg", "lg", "xl", "xl", "2xl"]}>{title}</Heading>
         <Text
           fontSize={["md", "md", "lg", "lg", "lg"]}
