@@ -1,8 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import { useRouter } from "next/router"
+import PageLayout from '../components/PageLayout'
+import IdeaViewPage from '../components/IdeaViewPage'
 
 const ProjectId = () => {
+  const [data,setData] = useState()
   const router = useRouter()
   const {project} = router.query;
   console.log(router.query)
@@ -26,7 +29,11 @@ const ProjectId = () => {
     fetchData()
   }, [project]) 
   return (
-    <div></div>
+    <PageLayout>
+      {data?.map((d) => {
+        <IdeaViewPage key={d._id} title={d.title} desc={d.desc} solvedProblem={d.solvedProblem}/>
+      })}
+    </PageLayout>
   )
 }
 
