@@ -9,7 +9,6 @@ import IdeaviewButton from "../components/IdeaviewButton"
 
 const Dashboard = () => {
   const [data, setData] = useState()
-  const [projectId,setProjectId] = useState()
   const router = useRouter()
 
     useEffect(() => {
@@ -25,15 +24,11 @@ const Dashboard = () => {
         config
       )
       setData(result.data.success.data)
-      setProjectId(result.data.success.data.id)
     }
     fetchData()
-  }, [])
+  }, [data])
 
-  const handleProjectId = () => {
-
-  router.push(`/${projectId}`)
-  }
+  
 
   return (
     <PageLayout isDirection>
@@ -45,7 +40,7 @@ const Dashboard = () => {
           description={d.desc}
           upvotes={d.upvotes}
           downvotes={d.downvotes}
-          onClick={handleProjectId}
+          onClick={() => {router.push(d._id)}}
         />
         
       ))}

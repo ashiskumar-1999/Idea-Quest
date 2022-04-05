@@ -3,12 +3,13 @@ import axios from 'axios'
 import { useRouter } from "next/router"
 import PageLayout from '../components/PageLayout'
 import IdeaViewPage from '../components/IdeaViewPage'
+import Navbar from '../components/Navbar'
 
 const ProjectId = () => {
   const [data,setData] = useState()
   const router = useRouter()
   const {project} = router.query;
-  console.log(router.query)
+ 
 
   useEffect(() => {
     let token =  JSON.parse(localStorage.getItem("token"))
@@ -23,13 +24,13 @@ const ProjectId = () => {
         `https://ideas-iq.herokuapp.com/api/ideas/${project}`,
         config
       )
-      setData(result.data.success.data)
       console.log(result.data.success.data)
     }
     fetchData()
   }, [project]) 
   return (
     <PageLayout>
+      <Navbar/>
       {data?.map((d) => {
         <IdeaViewPage key={d._id} title={d.title} desc={d.desc} solvedProblem={d.solvedProblem}/>
       })}
