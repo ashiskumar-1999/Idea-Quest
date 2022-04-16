@@ -19,7 +19,6 @@ export default function Home() {
       <PageLayout isDirection>
         <HeroSection/>
         <WhySection/>
-        <IdeaViewPage/>
       </PageLayout>
     </>
   )

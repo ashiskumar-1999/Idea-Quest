@@ -27,11 +27,11 @@ const IdeaViewPage = ({
       border="1px"
       borderColor="#D6E4DF"
       borderRadius="10px"
-      /* bg="#D6E4DF" */
+      bg="#D6E4DF"
       /* 
       bgGradient="linear(to-t, #ffffff, #D6E4DF)" */
     >
-      <HStack spacing={900} p="10px">
+      <HStack spacing={800} py="10px">
         <Box>
           <Heading fontSize={["2xl", "2xl", "3xl", "3xl", "4xl"]}>
             {title}
@@ -44,7 +44,7 @@ const IdeaViewPage = ({
       </HStack>
       <Divider orientation="horizontal" />
       <Box w="100%" textAlign="left" py="20px">
-        <Heading fontSize={["lg", "xl", "2xl", "2xl", "3xl"]}>
+        <Heading fontSize={["lg", "xl", "2xl", "3xl", "3xl"]}>
           Description
         </Heading>
         <Text textAlign="left">{desc}</Text>
