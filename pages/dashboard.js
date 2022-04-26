@@ -42,7 +42,6 @@ const Dashboard = () => {
           downvotes={d.downvotes}
           onClick={() => {router.push(d._id)}}
         />
-        
       ))}
     </PageLayout>
   )

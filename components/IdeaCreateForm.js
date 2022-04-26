@@ -101,10 +101,7 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
 
           <ModalFooter justifyContent="space-between">
             <Button onClick={createIdeaOnClose}>Cancel</Button>
-            <CustomButton label="Post Your Idea" onClick={() =>{
-            HandleCreate
-            createIdeaOnClose()
-          }} />
+            <CustomButton label="Post Your Idea" onClick={HandleCreate} />
           </ModalFooter>
         </ModalContent>
       </Modal>

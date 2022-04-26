@@ -1,12 +1,10 @@
 import React from "react";
 import {
-  Flex,
   Box,
   Divider,
   Heading,
   HStack,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 import PageLayout from "./PageLayout";
 import CustomButton from "./CustomButton";
@@ -15,8 +13,8 @@ const IdeaViewPage = ({
   title,
   desc,
   solvedProblem,
-  upvotes,
-  downvotes,
+  onUpvote, 
+  onDownvote
 }) => {
   return (
     <PageLayout
@@ -38,8 +36,8 @@ const IdeaViewPage = ({
           </Heading>
         </Box>
         <HStack spacing={6}>
-          <CustomButton label="upvotes" />
-          <CustomButton bg="#FD4242" label="downvotes" />
+          <CustomButton label="upvotes" onClick={onUpvote} />
+          <CustomButton bg="#FD4242" label="downvotes" onClick={onDownvote}/>
         </HStack>
       </HStack>
       <Divider orientation="horizontal" />

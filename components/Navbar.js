@@ -8,15 +8,17 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import { BsPlusLg } from "react-icons/Bs"
+import { useRouter } from "next/router"
 import Link from "next/link"
 import CustomButton from "./CustomButton"
 import IdeaCreateForm from "./IdeaCreateForm"
 
 const CredentialSection = () => {
+  
   return (
     <HStack>
       <Box>
-        <Link href="/signin" passHref>
+        <Link href={"/signin"} passHref>
           <CustomButton label="Sign in" />
         </Link>
       </Box>
@@ -35,7 +37,14 @@ const DashboardSection = () => {
     onOpen: createIdeaOnOpen,
     onClose: createIdeaOnClose,
   } = useDisclosure()
-
+  const router = useRouter()
+  
+  const handleLogout= () => {
+    if (typeof window !== "undefined") {
+          localStorage.removeItem('token')
+          router.push('/')
+    }
+  }
   return (
     <HStack>
       <IconButton
@@ -45,6 +54,7 @@ const DashboardSection = () => {
         onClick={createIdeaOnOpen}
         _focus={{ borderColor: "none" }}
       />
+      <CustomButton label="Log Out" onClick={handleLogout}/>
       <IdeaCreateForm
         createIdeaIsOpen={createIdeaIsOpen}
         createIdeaOnClose={createIdeaOnClose}
@@ -62,7 +72,9 @@ function Navbar() {
   
   return (
     <Flex w="100%" direction="row" justifyContent="space-between" mb="30px">
+      <Link href="/" passHref>
       <Image src="Logo.svg" alt="logo" />
+      </Link>
 {
   token ?  
   <DashboardSection />:<CredentialSection/>

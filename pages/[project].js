@@ -6,13 +6,16 @@ import IdeaViewPage from '../components/IdeaViewPage'
 import Navbar from '../components/Navbar'
 
 const Project = () => {
-  const [data,setData] = useState([])
+  const [data,setData] = useState(null)
+  const [token,setToken] = useState()
+  const [userId, setUserId] = useState()
   const router = useRouter()
   const {project} = router.query;
  
 
   useEffect(() => {
-    let token =  JSON.parse(localStorage.getItem("token"))
+    setToken(JSON.parse(localStorage.getItem("token")))
+    setUserId(localStorage.getItem("userId"))
     console.log(token)
     const fetchData = async () => {
       let config = {
@@ -28,11 +31,37 @@ const Project = () => {
   setData(result.data.success.data)
     }
     fetchData()
-  }, [project])
+  }, [project, token])
+
+  const handleUpvote = async () => {
+    let data = {
+        userId,
+        ideaId: project
+    }
+    const upvoteData = await axios.post(
+      "https://ideas-iq.herokuapp.com/api/ideas/upvote",
+      data
+    )
+    console.log(upvoteData)
+  }
+
+  const handleDownvote = async () => {
+    let data = {
+        userId,
+        ideaId: project
+    }
+    const downvoteData = await axios.post(
+      "https://ideas-iq.herokuapp.com/api/ideas/downvote",
+      data
+    )
+    console.log(downvoteData)
+  }
+
   return (
     <PageLayout isDirection>
       <Navbar/>
-        <IdeaViewPage key={data._id} title={data.title} desc={data.desc} solvedProblem={data.solvedProblem}/>
+      { !data ? "Data is loading" : <IdeaViewPage key={data._id} title={data.title} desc={data.desc} solvedProblem={data.solvedProblem} onUpvote={handleUpvote} onDownvote={handleDownvote}/>
+      }
     </PageLayout>
   )
 }
