@@ -5,7 +5,10 @@ import {
   Heading,
   HStack,
   Text,
+  IconButton,
+  VStack
 } from "@chakra-ui/react";
+import {MdDelete} from 'react-icons/md'
 import PageLayout from "./PageLayout";
 import CustomButton from "./CustomButton";
 
@@ -14,12 +17,10 @@ const IdeaViewPage = ({
   desc,
   solvedProblem,
   onUpvote, 
-  onDownvote
+  onDownvote,onDelete
 }) => {
   return (
-    <PageLayout
-      isDirection
-      w="100%"
+    <VStack
       px="10px"
       py="30px"
       border="1px"
@@ -29,7 +30,7 @@ const IdeaViewPage = ({
       /* 
       bgGradient="linear(to-t, #ffffff, #D6E4DF)" */
     >
-      <HStack spacing={800} py="10px">
+      <HStack spacing={700} py="10px">
         <Box>
           <Heading fontSize={["2xl", "2xl", "3xl", "3xl", "4xl"]}>
             {title}
@@ -38,6 +39,14 @@ const IdeaViewPage = ({
         <HStack spacing={6}>
           <CustomButton label="upvotes" onClick={onUpvote} />
           <CustomButton bg="#FD4242" label="downvotes" onClick={onDownvote}/>
+          <IconButton
+            variant="ghost"
+            size="lg"
+            colorScheme="red"
+            aria-label="Send email"
+            icon={<MdDelete />}
+            onClick={onDelete}
+          />
         </HStack>
       </HStack>
       <Divider orientation="horizontal" />
@@ -53,7 +62,7 @@ const IdeaViewPage = ({
         </Heading>
         <Text textAlign="left">{solvedProblem}</Text>
       </Box>
-    </PageLayout>
+    </VStack>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import {useRouter} from "next/router"
 import { Link } from "next/link"
+import { Spinner } from "@chakra-ui/react"
 import PageLayout from "../components/PageLayout"
 import Navbar from "../components/Navbar"
 import IdeaviewButton from "../components/IdeaviewButton"
@@ -33,7 +34,7 @@ const Dashboard = () => {
   return (
     <PageLayout isDirection>
       <Navbar />
-      {data?.map((d) => (
+      {data ? data.map((d) => (
         <IdeaviewButton
           key={d._id}
           title={d.title}
@@ -42,7 +43,13 @@ const Dashboard = () => {
           downvotes={d.downvotes}
           onClick={() => {router.push(d._id)}}
         />
-      ))}
+      )) :  <Spinner
+      thickness='4px'
+      speed='0.65s'
+      emptyColor='gray.200'
+      color='#15DB95'
+      size='xl'
+    /> }
     </PageLayout>
   )
 }

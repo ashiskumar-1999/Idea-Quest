@@ -74,7 +74,9 @@ const SigninForm = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Box mt="30px">
-          <CustomButton label="Sign In" onClick={handleLogin} />
+          <CustomButton label="Sign In" onClick={() => {
+            handleLogin()
+            }}  />
         </Box>
       </FormControl>
     </form>
