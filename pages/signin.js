@@ -46,7 +46,7 @@ const SigninForm = () => {
 
   return (
     <form>
-      <FormControl isRequired>
+      <FormControl onSubmit={handleLogin} isRequired>
         <FormLabel htmlFor="email" fontWeight="bold">
           Email address
         </FormLabel>

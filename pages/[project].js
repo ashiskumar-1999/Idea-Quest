@@ -8,17 +8,16 @@ import IdeaViewPage from '../components/IdeaViewPage'
 import Navbar from '../components/Navbar'
 
 const Project = () => {
-  const toast = useToast()
   const router = useRouter()
   const {project} = router.query;
   const [token,setToken] = useState()
   const [userId, setUserId] = useState()
-  const [data,setData] = useState()
-
+  const [data,setData] = useState(null)
+  const toast = useToast()
   useEffect(() => {
     setToken(JSON.parse(localStorage.getItem("token")))
     setUserId(localStorage.getItem("userId"))
-    const fetchData = () => {
+    const fetchData = async() => {
       let config = {
         headers: {
           Authorization: "bearer" + token,
@@ -32,6 +31,7 @@ const Project = () => {
         console.log(response.data.success.data.ideator._id);
         setData(response.data.success.data)
       })
+      .catch((err) => {console.error(err)})
   
     }
     fetchData()
@@ -71,7 +71,7 @@ const handleDelete = () => {
         title: 'Deleted Successfully',
         position: 'bottom-right',
         status: 'success',
-        duration: 7000,
+        duration: 2000,
         isClosable: true,
       })
     })
@@ -83,7 +83,7 @@ const handleDelete = () => {
       description: "You are not autherized to delete this Idea",
       position: 'bottom-right',
       status: 'error',
-      duration: 7000,
+      duration: 2000,
       isClosable: true,
     })
   }
