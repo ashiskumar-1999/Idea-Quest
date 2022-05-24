@@ -1,13 +1,14 @@
 import React,{useState,useEffect} from "react"
 import {
   Box,
+  Button,
   Flex,
   HStack,
   Image,
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react"
-import { BsPlusLg } from "react-icons/Bs"
+import { BsPlusLg } from "react-icons/bs"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import CustomButton from "./CustomButton"
@@ -65,16 +66,25 @@ const DashboardSection = () => {
 function Navbar() {
   const [token,setToken] = useState()
   useEffect(() => {
-    let token = localStorage.getItem('token')
-    setToken(token)
+    let usertoken = localStorage.getItem('token')
+    setToken(usertoken)
     
   },[])
   
   return (
     <Flex w="100%" direction="row" justifyContent="space-between" mb="30px">
+      <HStack spacing={8}>
       <Link href="/" passHref>
       <Image src="Logo.svg" alt="logo" />
       </Link>
+      <Link href="/dashboard" passHref>
+        <Button variant="link" color="#000000" fontSize="xl">Dashboard</Button>
+      </Link>
+      <Link href="/youridea" passHref>
+        <Button variant="link" color="#000000" fontSize="xl">My idea</Button>
+      </Link>
+      </HStack>
+     
 {
   token ?  
   <DashboardSection />:<CredentialSection/>

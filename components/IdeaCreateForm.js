@@ -12,6 +12,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  useToast
 } from "@chakra-ui/react"
 import CustomButton from "./CustomButton"
 import axios from "axios"
@@ -19,6 +20,7 @@ import axios from "axios"
 const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
   const initialRef = useRef()
   const finalRef = useRef()
+  const toast = useToast()
   const [title, setTitle] = useState()
   const [desc, setDesc] = useState()
   const [solvedProblem, setSolvedProblem] = useState()
@@ -28,7 +30,6 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
     const userId = localStorage.getItem("userId");
     
     setIdeator(userId);
-    console.log('ideator:', ideator);
   }, [ideator]);
 
   const data = JSON.stringify({
@@ -38,24 +39,34 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
     ideator: ideator,
   });
 
-  const HandleCreate = async () => {
+  const HandleCreate =() => {
     let config = {
       headers: {
-        'Content-Type': 'application/json', // 
-        'Content-Length': 100,
+        'Content-Type': 'application/json',
       },
-      // data: {
-      //   title,
-      //   desc,
-      //   solvedProblem,
-      //   ideator,
-      // },
     }
-    let response = await axios.post(
+     axios.post(
       "https://ideas-iq.herokuapp.com/api/ideas",
       data,
       config
-    ) .then((res) => res.json())
+    ) .then(() =>
+    data?
+      
+        toast({
+          title: 'Deleted Successfully',
+          position: 'bottom-right',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        }):
+      toast({
+        title: 'Error while deleting the idea.',
+        description: "You are not autherized to delete this Idea",
+        position: 'bottom-right',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      }) )
       .catch((err) => console.log(err))
   }
 

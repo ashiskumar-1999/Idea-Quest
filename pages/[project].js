@@ -1,8 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import { useRouter } from "next/router"
-import { Spinner } from '@chakra-ui/react'
-import { useToast } from '@chakra-ui/react'
+import {Spinner, useToast } from '@chakra-ui/react'
 import PageLayout from '../components/PageLayout'
 import IdeaViewPage from '../components/IdeaViewPage'
 import Navbar from '../components/Navbar'
@@ -17,7 +16,7 @@ const Project = () => {
   useEffect(() => {
     setToken(JSON.parse(localStorage.getItem("token")))
     setUserId(localStorage.getItem("userId"))
-    const fetchData = async() => {
+    const fetchData = () => {
       let config = {
         headers: {
           Authorization: "bearer" + token,
@@ -28,7 +27,6 @@ const Project = () => {
         config
       )
       .then(function (response) {
-        console.log(response.data.success.data.ideator._id);
         setData(response.data.success.data)
       })
       .catch((err) => {console.error(err)})
@@ -69,6 +67,8 @@ const handleDelete = () => {
       console.log(response.data)
       toast({
         title: 'Deleted Successfully',
+        
+      description: "Your idea has been successfully deleted",
         position: 'bottom-right',
         status: 'success',
         duration: 2000,
