@@ -47,7 +47,13 @@ const DashboardSection = () => {
     }
   }
   return (
-    <HStack>
+    <HStack spacing={8}>
+      <Link href="/dashboard" passHref>
+        <Button variant="link" color="#000000" fontSize="xl">Dashboard</Button>
+      </Link>
+      <Link href="/youridea" passHref>
+        <Button variant="link" color="#000000" fontSize="xl">My idea</Button>
+      </Link>
       <IconButton
         colorScheme="gray"
         aria-label="Post Your Idea"
@@ -76,12 +82,6 @@ function Navbar() {
       <HStack spacing={8}>
       <Link href="/" passHref>
       <Image src="Logo.svg" alt="logo" />
-      </Link>
-      <Link href="/dashboard" passHref>
-        <Button variant="link" color="#000000" fontSize="xl">Dashboard</Button>
-      </Link>
-      <Link href="/youridea" passHref>
-        <Button variant="link" color="#000000" fontSize="xl">My idea</Button>
       </Link>
       </HStack>
      
