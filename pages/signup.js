@@ -13,7 +13,7 @@ const SignupForm = () => {
   const [lastname, setLastName] = useState("")
   /*  const [role, setRole] = useState("") */
   const [password, setPassword] = useState("")
-  const router = useRouter
+  const router = useRouter()
 
   const handleSignup = async () => {
     let response = await axios.post(

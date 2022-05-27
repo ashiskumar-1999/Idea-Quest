@@ -21,46 +21,55 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
   const initialRef = useRef()
   const finalRef = useRef()
   const toast = useToast()
+  const [token,setToken] = useState()
   const [title, setTitle] = useState()
   const [desc, setDesc] = useState()
   const [solvedProblem, setSolvedProblem] = useState()
   const [ideator, setIdeator] = useState()
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    
-    setIdeator(userId);
-  }, [ideator]);
+    setToken(JSON.parse(localStorage.getItem("token")))
+    setIdeator(localStorage.getItem("userId"))
+  }, [])
 
-  const data = JSON.stringify({
+  /* const data = JSON.stringify({
     title: title,
     desc: desc,
     solvedProblem: solvedProblem,
     ideator: ideator,
-  });
+  }); */
 
-  const HandleCreate =() => {
+  const HandleCreate = () => {
+    let  data= {
+      title,
+      desc,
+      solvedProblem,
+      ideator,
+     }
     let config = {
       headers: {
         'Content-Type': 'application/json',
+        'Content-Length':1000,
+        Authorization: token,
+        Host: '',
       },
     }
      axios.post(
       "https://ideas-iq.herokuapp.com/api/ideas",
       data,
       config
-    ) .then(() =>
-    data?
-      
+    ) 
+    .then((response) =>
+    response.success.statusCode ?
         toast({
-          title: 'Deleted Successfully',
+          title: 'Created Successfully',
           position: 'bottom-right',
           status: 'success',
           duration: 2000,
           isClosable: true,
         }):
       toast({
-        title: 'Error while deleting the idea.',
+        title: 'Error while Creating the idea.',
         description: "You are not autherized to delete this Idea",
         position: 'bottom-right',
         status: 'error',
@@ -80,7 +89,7 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create your account</ModalHeader>
+          <ModalHeader>Create your Idea</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
