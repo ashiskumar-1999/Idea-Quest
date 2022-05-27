@@ -35,33 +35,54 @@ const Project = () => {
     fetchData()
   }, [ project, token])
 
-  const handleUpvote = async () => {
+  const handleUpvote = () => {
+    let config = {
+      headers: {
+        Authorization: "bearer" + token,
+      },
+    }
     let data = {
         userId,
         ideaId: project
     }
-    const upvoteData = await axios.post(
+     axios.post(
       "https://ideas-iq.herokuapp.com/api/ideas/upvote",
-      data
+      data,
+      config
+      
     )
-    console.log(upvoteData)
+    .then(function (response) {
+      console.log(response.data.success.data)
+    })
+    .catch((err) => {console.error(err)})
   }
 
   const handleDownvote = async () => {
+    let config = {
+      headers: {
+        Authorization: "bearer" + token,
+      },
+    }
     let data = {
         userId,
         ideaId: project
     }
     const downvoteData = await axios.post(
       "https://ideas-iq.herokuapp.com/api/ideas/downvote",
-      data
+      data, 
+      config
     )
     console.log(downvoteData)
   }
 
 const handleDelete = () => {
   if(data.ideator._id == userId) {
-    axios.delete(`https://ideas-iq.herokuapp.com/api/ideas/${project}`)
+    let config = {
+      headers: {
+        Authorization: "bearer" + token,
+      },
+    }
+    axios.delete(`https://ideas-iq.herokuapp.com/api/ideas/${project}`,config)
     .then((response) => 
     {
       console.log(response.data)
@@ -76,6 +97,7 @@ const handleDelete = () => {
       })
     })
     .then(() => {router.push('/dashboard')}) 
+    .catch((err) => {console.error(err)})
   }
   else{
     toast({
