@@ -1,4 +1,7 @@
+
 import React, { useState,useRef, useEffect } from "react"
+import { useRouter } from "next/router"
+import axios from "axios"
 import {
   Button,
   FormControl,
@@ -15,65 +18,80 @@ import {
   useToast
 } from "@chakra-ui/react"
 import CustomButton from "./CustomButton"
-import axios from "axios"
 
-const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
+
+const IdeaEditForm = ({ editIdeaIsOpen, editIdeaOnClose }) => {
   const initialRef = useRef()
   const finalRef = useRef()
   const toast = useToast()
-  const [token,setToken] = useState()
+  const router = useRouter()
+  const {project} = router.query;
+  const [token, setToken] = useState()
+  const [data,setData] = useState(null)
   const [title, setTitle] = useState()
   const [desc, setDesc] = useState()
   const [solvedProblem, setSolvedProblem] = useState()
-  const [ideator, setIdeator] = useState()
 
   useEffect(() => {
     setToken(JSON.parse(localStorage.getItem("token")))
-    setIdeator(localStorage.getItem("userId"))
-  }, [])
+    const fetchData = () => {
+    let config = {
+        headers: {
+          Authorization: "bearer" + token,
+        },
+      }
+       axios.get(
+        `https://ideas-iq.herokuapp.com/api/ideas/${project}`,
+        config
+      )
+      .then(function (response) {
+        setTitle(response.data.success.data.title)
+        setDesc(response.data.success.data.desc)
+        setSolvedProblem(response.data.success.data.solvedProblem)
+      })
+      .catch((err) => {console.error(err)})
+    }
+    fetchData()
+  }, [project, token])
 
-  /* const data = JSON.stringify({
-    title: title,
-    desc: desc,
-    solvedProblem: solvedProblem,
-    ideator: ideator,
-  }); */
-
-  const HandleCreate = () => {
-    let  data= {
-      title,
-      desc,
-      solvedProblem,
-      ideator,
-     }
+  const handleEdit =() => {
+      console.log('TOken',token)
     let config = {
       headers: {
         'Content-Type': 'application/json',
         Authorization: token,
       },
     }
-     axios.post(
-      "https://ideas-iq.herokuapp.com/api/ideas",
+    let data = {
+        title: title,
+        desc: desc,
+        solvedProblem: solvedProblem,
+    }
+     axios.put(
+        `https://ideas-iq.herokuapp.com/api/ideas/${project}`,
       data,
       config
-    ) 
-    .then((response) =>
-    response.success.statusCode ?
+    ) .then((response) =>
+response.data.success.statusCode ?
+      
         toast({
-          title: 'Created Successfully',
+          title: 'Updated Successfully',
           position: 'bottom-right',
           status: 'success',
           duration: 2000,
           isClosable: true,
         }):
       toast({
-        title: 'Error while Creating the idea.',
-        description: "You are not autherized to delete this Idea",
+        title: 'Error while Updating the idea.',
+        /* description: "You are not autherized to delete this Idea", */
         position: 'bottom-right',
         status: 'error',
         duration: 2000,
         isClosable: true,
       }) )
+      .then(() => {
+      editIdeaOnClose()
+      router.push('/dashboard')})
       .catch((err) => console.log(err))
   }
 
@@ -82,12 +100,12 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
-        isOpen={createIdeaIsOpen}
-        onClose={createIdeaOnClose}
+        isOpen={editIdeaIsOpen}
+        onClose={editIdeaOnClose}
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create your Idea</ModalHeader>
+          <ModalHeader>Update your Idea</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
@@ -118,8 +136,8 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
           </ModalBody>
 
           <ModalFooter justifyContent="space-between">
-            <Button onClick={createIdeaOnClose}>Cancel</Button>
-            <CustomButton label="Post Your Idea" onClick={HandleCreate} />
+            <Button onClick={editIdeaOnClose}>Cancel</Button>
+            <CustomButton label="Update" onClick={handleEdit}/>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -127,4 +145,4 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
   )
 }
 
-export default IdeaCreateForm
+export default IdeaEditForm

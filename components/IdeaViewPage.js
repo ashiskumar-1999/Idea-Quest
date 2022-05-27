@@ -6,10 +6,9 @@ import {
   HStack,
   Text,
   IconButton,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
-import {MdDelete} from 'react-icons/md'
-import PageLayout from "./PageLayout";
+import {MdDelete, MdModeEdit} from 'react-icons/md'
 import CustomButton from "./CustomButton";
 
 const IdeaViewPage = ({
@@ -17,8 +16,10 @@ const IdeaViewPage = ({
   desc,
   solvedProblem,
   onUpvote, 
+  onEdit,
   onDownvote,onDelete
 }) => {
+  
   return (
     <VStack
       px="10px"
@@ -36,7 +37,7 @@ const IdeaViewPage = ({
             {title}
           </Heading>
         </Box>
-        <HStack spacing={6}>
+        <HStack spacing={4}>
           <CustomButton label="upvotes" onClick={onUpvote} />
           <CustomButton bg="#FD4242" label="downvotes" onClick={onDownvote}/>
           <IconButton
@@ -46,6 +47,14 @@ const IdeaViewPage = ({
             aria-label="Send email"
             icon={<MdDelete />}
             onClick={onDelete}
+          />
+           <IconButton
+            variant="ghost"
+            size="lg"
+            colorScheme="#15DB95"
+            aria-label="Send email"
+            icon={<MdModeEdit />}
+            onClick={onEdit}
           />
         </HStack>
       </HStack>
