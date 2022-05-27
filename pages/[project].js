@@ -1,9 +1,10 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import { useRouter } from "next/router"
-import {Spinner, useToast } from '@chakra-ui/react'
+import {Spinner, useToast,useDisclosure } from '@chakra-ui/react'
 import PageLayout from '../components/PageLayout'
 import IdeaViewPage from '../components/IdeaViewPage'
+import IdeaEditForm from "../components/IdeaEditForm";
 import Navbar from '../components/Navbar'
 
 const Project = () => {
@@ -13,6 +14,11 @@ const Project = () => {
   const [userId, setUserId] = useState()
   const [data,setData] = useState(null)
   const toast = useToast()
+  const {
+    isOpen: editIdeaIsOpen,
+    onOpen: editIdeaOnOpen,
+    onClose: editIdeaOnClose,
+} = useDisclosure()
   useEffect(() => {
     setToken(JSON.parse(localStorage.getItem("token")))
     setUserId(localStorage.getItem("userId"))
@@ -129,10 +135,15 @@ const handleDelete = () => {
         solvedProblem={data.solvedProblem}
         Ideator={data.Ideator}
         onUpvote={handleUpvote}
+        onEdit={editIdeaOnOpen}
         onDownvote={handleDownvote}
         onDelete={handleDelete}
       />
       } 
+       <IdeaEditForm 
+          editIdeaIsOpen={editIdeaIsOpen}
+          editIdeaOnClose={editIdeaOnClose}
+          />
     </PageLayout>
   )
 }
