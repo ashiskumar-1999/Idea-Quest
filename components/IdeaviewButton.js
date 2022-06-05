@@ -8,6 +8,10 @@ const IdeaviewButton = ({ title, description, upvotes, downvotes,onClick }) => {
 
   const IncreaseCount = () => setUpvote((c) => c + 1)
   const DecreaseCount = () => setDownvote((e) => e + 1) */
+     const toTitleCase = (s) => {
+    const formatted = s[0].toUpperCase() + s.slice(1);
+    return formatted;
+}
 
   return (
     <Box
@@ -26,7 +30,7 @@ const IdeaviewButton = ({ title, description, upvotes, downvotes,onClick }) => {
     >
       <Flex direction="column" textAlign="left" w={"100%"}>
         <HStack justifyContent="space-between">
-        <Heading fontSize={["2xl", "2xl", "3xl", "3xl", "3xl"]} color="#15DB95" noOfLines={1}>{title}</Heading>
+        <Heading fontSize={["2xl", "2xl", "3xl", "3xl", "3xl"]} color="#15DB95" noOfLines={1}>{toTitleCase(title)}</Heading>
         <HStack>
         <VStack>
           <IoIosArrowUp color="#15DB95" />
@@ -50,10 +54,12 @@ const IdeaviewButton = ({ title, description, upvotes, downvotes,onClick }) => {
           textAlign={"justify"}
           noOfLines={6}
         >
-          {description}
+          {toTitleCase(description)}
         </Text>
         </Box>
       </Flex>
+
+     
     </Box>
   )
 }
