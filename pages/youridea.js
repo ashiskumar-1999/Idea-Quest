@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import { SimpleGrid } from '@chakra-ui/react'
+import { Alert, AlertIcon, AlertTitle, SimpleGrid } from '@chakra-ui/react'
 import {useRouter} from "next/router"
 import axios from 'axios'
 import PageLayout from '../components/PageLayout'
@@ -20,7 +20,14 @@ const YourIdea = () => {
       )
       .then(function (response) {
         console.log("My idea:",response.data.success.data)
-        setData(response.data.success.data)
+        response.data.success.data.length === 0 ?
+         <Alert status='info'>
+        <AlertIcon />
+        <AlertTitle>
+        You have nt created any ideas yet.
+        </AlertTitle>
+      </Alert>
+      : setData(response.data.success.data)
       })
       .catch((err) => {console.error(err)})
   

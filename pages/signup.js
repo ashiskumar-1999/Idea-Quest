@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Box, FormControl, FormLabel, Input, Image } from "@chakra-ui/react"
+import { Box, FormControl, FormLabel, Input, Image, useToast } from "@chakra-ui/react"
 import FormCard from "../components/FormCard"
 import PageLayout from "../components/PageLayout"
 import CustomButton from "../components/CustomButton"
@@ -13,10 +13,11 @@ const SignupForm = () => {
   const [lastname, setLastName] = useState("")
   /*  const [role, setRole] = useState("") */
   const [password, setPassword] = useState("")
+  const toast = useToast()
   const router = useRouter()
 
-  const handleSignup = async () => {
-    let response = await axios.post(
+  const handleSignup = () => {
+      axios.post(
       "https://ideas-iq.herokuapp.com/api/auth/signup",
       {
         email,
@@ -25,10 +26,19 @@ const SignupForm = () => {
         password,
       }
     )
-    console.log(response.data.success.statusCode)
-    if(response.data.success.statusCode){
-      router.push('/signin')
-    }
+    .then((response)=> {
+      response.data.success.statusCode &&
+        toast({
+          title: 'User created Successfully',
+          position: 'bottom-right',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
+         router.push('/signin')
+    })
+    .catch((err) => console.error(err))
+    
   }
     
   return (

@@ -49,10 +49,10 @@ const DashboardSection = () => {
   return (
     <HStack spacing={8}>
       <Link href="/dashboard" passHref>
-        <Button variant="link" color="#000000" fontSize="xl">Dashboard</Button>
+        <Button variant="link" color="#000000" fontSize="xl" _focus={{ borderColor: "none" }}>Dashboard</Button>
       </Link>
       <Link href="/youridea" passHref>
-        <Button variant="link" color="#000000" fontSize="xl">My idea</Button>
+        <Button variant="link" color="#000000" fontSize="xl" _focus={{ borderColor: "none" }}>My idea</Button>
       </Link>
       <IconButton
         colorScheme="gray"
