@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-
+import { SimpleGrid } from '@chakra-ui/react'
 import {useRouter} from "next/router"
 import axios from 'axios'
 import PageLayout from '../components/PageLayout'
@@ -30,10 +30,12 @@ const YourIdea = () => {
   return (
     <PageLayout isDirection>
       <Navbar />
+      <SimpleGrid columns={[1,1,2,2,3]} spacing={10}>
       {data && data.map((d) => (
           <IdeaviewButton key={d._id} title={d.title} description={d.desc}  upvotes={d.upvotes}
           downvotes={d.downvotes} onClick={() => {router.push(d._id)}}/>
       ))}
+      </SimpleGrid>
     </PageLayout>
     )
 }

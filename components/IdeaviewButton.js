@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Box, Button, Heading, HStack, Text, VStack } from "@chakra-ui/react"
+import { Box, Button, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react"
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io"
 
 const IdeaviewButton = ({ title, description, upvotes, downvotes,onClick }) => {
@@ -10,33 +10,24 @@ const IdeaviewButton = ({ title, description, upvotes, downvotes,onClick }) => {
   const DecreaseCount = () => setDownvote((e) => e + 1) */
 
   return (
-    <Button
+    <Box
       w="100%"
-      h="50px"
-      p={["10px","10px","30px","30px","30px"]}
+      h={["300px","300px","320px","300px","300px"]}
+      p={["20px","20px","30px","30px","30px"]}
       mt={["20px","20px","30px","30px","30px"]}
-      justifyContent="space-between"
-      alignItems="center"
-      bg="#ffffff"
+      
+      alignItems="baseline"
       borderRadius="10px"
       borderColor="#F6EFEF"
       boxShadow="md"
-      _hover={{ bg: "#ffffff" }}
       _focus={{ borderColor: "none" }}
       _active={{ bg: "none" }}
       onClick={onClick}
     >
-      <Box textAlign="left" w={["80%","80%","80%","90%","100%"]}>
-        <Heading fontSize={["lg", "lg", "xl", "xl", "2xl"]}>{title}</Heading>
-        <Text
-          fontSize={["md", "md", "lg", "lg", "lg"]}
-          fontWeight="normal"
-          isTruncated
-        >
-          {description}
-        </Text>
-      </Box>
-      <HStack>
+      <Flex direction="column" textAlign="left" w={"100%"}>
+        <HStack justifyContent="space-between">
+        <Heading fontSize={["2xl", "2xl", "3xl", "3xl", "3xl"]} color="#15DB95">{title}</Heading>
+        <HStack>
         <VStack>
           <IoIosArrowUp color="#15DB95" />
           <Text fontWeight="bold" color="#15DB95">
@@ -51,7 +42,19 @@ const IdeaviewButton = ({ title, description, upvotes, downvotes,onClick }) => {
           </Text>
         </VStack>
       </HStack>
-    </Button>
+        </HStack>
+        <Box w="90%" h="100px" pt="20px" >
+        <Text
+          fontSize={["lg", "xl", "xl", "xl", "xl"]}
+          fontWeight="medium"
+          textAlign={"justify"}
+          noOfLines={6}
+        >
+          {description}
+        </Text>
+        </Box>
+      </Flex>
+    </Box>
   )
 }
 
