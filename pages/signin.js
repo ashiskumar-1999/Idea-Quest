@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { Box, FormControl, FormLabel, Input, Image } from "@chakra-ui/react"
+import { Box, FormControl, FormLabel, Input, Image,Spinner } from "@chakra-ui/react"
 import CustomButton from "../components/CustomButton"
 import PageLayout from "../components/PageLayout"
 import FormCard from "../components/FormCard"
@@ -8,6 +8,7 @@ import { useRouter } from "next/router"
 
 
 const SigninForm = () => {
+  const [label,setLabel] = useState('Sign in')
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const router = useRouter()
@@ -74,7 +75,15 @@ const SigninForm = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Box mt="30px">
-          <CustomButton label="Sign In" onClick={() => {
+          <CustomButton label={label} onClick={() => {
+            setLabel(
+            <Spinner
+              thickness='4px'
+              speed='0.65s'
+              emptyColor='gray.200'
+              color='#ffffff'
+              size='lg'
+            />)
             handleLogin()
             }}  />
         </Box>

@@ -26,7 +26,7 @@ const IdeaviewButton = ({ title, description, upvotes, downvotes,onClick }) => {
     >
       <Flex direction="column" textAlign="left" w={"100%"}>
         <HStack justifyContent="space-between">
-        <Heading fontSize={["2xl", "2xl", "3xl", "3xl", "3xl"]} color="#15DB95">{title}</Heading>
+        <Heading fontSize={["2xl", "2xl", "3xl", "3xl", "3xl"]} color="#15DB95" noOfLines={1}>{title}</Heading>
         <HStack>
         <VStack>
           <IoIosArrowUp color="#15DB95" />
@@ -43,7 +43,7 @@ const IdeaviewButton = ({ title, description, upvotes, downvotes,onClick }) => {
         </VStack>
       </HStack>
         </HStack>
-        <Box w="90%" h="100px" pt="20px" >
+        <Box w="90%" h="100px" pt="20px">
         <Text
           fontSize={["lg", "xl", "xl", "xl", "xl"]}
           fontWeight="medium"
