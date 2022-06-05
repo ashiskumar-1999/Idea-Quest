@@ -19,7 +19,6 @@ const IdeaViewPage = ({
   onEdit,
   onDownvote,onDelete
 }) => {
-  
   return (
     <VStack
       px="10px"

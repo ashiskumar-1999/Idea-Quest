@@ -19,6 +19,10 @@ const Project = () => {
     onOpen: editIdeaOnOpen,
     onClose: editIdeaOnClose,
 } = useDisclosure()
+const toTitleCase = (s) => {
+  const formatted = s[0].toUpperCase() + s.slice(1);
+  return formatted;
+}
   useEffect(() => {
     setToken(JSON.parse(localStorage.getItem("token")))
     setUserId(localStorage.getItem("userId"))
@@ -145,9 +149,9 @@ const handleDelete = () => {
       : 
       <IdeaViewPage
         key={data._id}
-        title={data.title}
-        desc={data.desc}
-        solvedProblem={data.solvedProblem}
+        title={data.title && toTitleCase(data.title)}
+        desc={data.desc && toTitleCase(data.desc)}
+        solvedProblem={data.solvedProblem && toTitleCase(data.solvedProblem)}
         Ideator={data.Ideator}
         onUpvote={handleUpvote}
         onEdit={editIdeaOnOpen}
