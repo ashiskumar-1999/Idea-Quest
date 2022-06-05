@@ -57,13 +57,19 @@ const Project = () => {
       config
       
     )
-    .then(function (response) {
-      console.log(response.data.success.data)
+    .then((response) => {
+      toast({
+        title: 'Upvoted Successfully',
+        position: 'bottom-right',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      })
     })
     .catch((err) => {console.error(err)})
   }
 
-  const handleDownvote = async () => {
+  const handleDownvote = () => {
     let config = {
       headers: {
         Authorization: "bearer" + token,
@@ -73,12 +79,21 @@ const Project = () => {
         userId,
         ideaId: project
     }
-    const downvoteData = await axios.post(
+     axios.post(
       "https://ideas-iq.herokuapp.com/api/ideas/downvote",
       data, 
       config
     )
-    console.log(downvoteData)
+    .then(function (response) {
+      toast({
+        title: 'Downvoted Successfully',
+        position: 'bottom-right',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      })
+    })
+    .catch((err) => {console.error(err)})
   }
 
 const handleDelete = () => {

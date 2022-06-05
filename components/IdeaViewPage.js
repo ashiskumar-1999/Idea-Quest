@@ -38,8 +38,8 @@ const IdeaViewPage = ({
           </Heading>
         </Box>
         <HStack spacing={4}>
-          <CustomButton label="upvotes" onClick={onUpvote} />
-          <CustomButton bg="#FD4242" label="downvotes" onClick={onDownvote}/>
+          <CustomButton label="Upvote" onClick={onUpvote} />
+          <CustomButton bg="#FD4242" label="Downvote" onClick={onDownvote}/>
           <IconButton
             variant="ghost"
             size="lg"

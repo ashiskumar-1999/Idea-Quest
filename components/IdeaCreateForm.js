@@ -32,13 +32,6 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
     setIdeator(localStorage.getItem("userId"))
   }, [])
 
-  /* const data = JSON.stringify({
-    title: title,
-    desc: desc,
-    solvedProblem: solvedProblem,
-    ideator: ideator,
-  }); */
-
   const HandleCreate = () => {
     let  data= {
       title,
@@ -58,9 +51,10 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
       config
     ) 
     .then((response) =>
-    response.success.statusCode ?
+    response.data.success.statusCode ?
         toast({
           title: 'Created Successfully',
+          description: 'You have successfully created the Idea',
           position: 'bottom-right',
           status: 'success',
           duration: 2000,
@@ -74,6 +68,9 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
         duration: 2000,
         isClosable: true,
       }) )
+      .then(() => {
+        createIdeaOnClose()
+        router.push('/dashboard')})
       .catch((err) => console.log(err))
   }
 
