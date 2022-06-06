@@ -14,6 +14,7 @@ import {
   ModalCloseButton,
   useToast
 } from "@chakra-ui/react"
+import {useRouter} from 'next/router'
 import CustomButton from "./CustomButton"
 import axios from "axios"
 
@@ -21,6 +22,7 @@ const IdeaCreateForm = ({ createIdeaIsOpen, createIdeaOnClose }) => {
   const initialRef = useRef()
   const finalRef = useRef()
   const toast = useToast()
+  const router = useRouter()
   const [token,setToken] = useState()
   const [title, setTitle] = useState()
   const [desc, setDesc] = useState()

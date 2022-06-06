@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { Box, FormControl, FormLabel, Input, Image,Spinner } from "@chakra-ui/react"
+import { Box, FormControl, FormLabel, Input, Image,Spinner, useToast } from "@chakra-ui/react"
 import CustomButton from "../components/CustomButton"
 import PageLayout from "../components/PageLayout"
 import FormCard from "../components/FormCard"
+import { handleErrorToasts } from "../utils/error.utils"
 import { useRouter } from "next/router"
 
 
@@ -13,29 +14,36 @@ const SigninForm = () => {
   const [password, setPassword] = useState("")
   const router = useRouter()
   const [token, setToken] = useState('')
+  const toast = useToast()
 
   const handleLogin = async () => {
 
-    let response = await axios.post(
+    axios.post(
       "https://ideas-iq.herokuapp.com/api/auth/login",
       {
         email,
         password,
       }
     )
-    console.log(response.data)
-    if (typeof window !== "undefined") {
-      localStorage.setItem(
-        "token",
-        JSON.stringify(response.data.success.data.token)
-      )
-      localStorage.setItem(
-        "userId",
-        response.data.success.data.loggedInUserId
-      )
-      const token = localStorage.getItem('token')
-      setToken(token)
-    }
+    .then((response) => {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(
+          "token",
+          JSON.stringify(response.data.success.data.token)
+        )
+        localStorage.setItem(
+          "userId",
+          response.data.success.data.loggedInUserId
+        )
+        const token = localStorage.getItem('token')
+        setToken(token)
+      }
+    })
+    
+    .catch((axiosError) =>{ console.log(axiosError.response.data.error.msg)
+      handleErrorToasts(axiosError.response.data.error, toast)
+  }
+  )
     
   }
   if(token){
