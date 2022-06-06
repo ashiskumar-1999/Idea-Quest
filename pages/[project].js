@@ -4,7 +4,9 @@ import { useRouter } from "next/router"
 import {Spinner, useToast,useDisclosure } from '@chakra-ui/react'
 import PageLayout from '../components/PageLayout'
 import IdeaViewPage from '../components/IdeaViewPage'
+import { handleErrorToasts } from '../utils/error.utils'
 import IdeaEditForm from "../components/IdeaEditForm";
+import { toTitleCase } from '../utils/string.util'
 import Navbar from '../components/Navbar'
 
 const Project = () => {
@@ -19,10 +21,7 @@ const Project = () => {
     onOpen: editIdeaOnOpen,
     onClose: editIdeaOnClose,
 } = useDisclosure()
-const toTitleCase = (s) => {
-  const formatted = s[0].toUpperCase() + s.slice(1);
-  return formatted;
-}
+
   useEffect(() => {
     setToken(JSON.parse(localStorage.getItem("token")))
     setUserId(localStorage.getItem("userId"))
@@ -39,11 +38,13 @@ const toTitleCase = (s) => {
       .then(function (response) {
         setData(response.data.success.data)
       })
-      .catch((err) => {console.error(err)})
+      .catch((err) =>{ console.error(err)
+    }
+    )
   
     }
     fetchData()
-  }, [ project, token])
+  }, [project, toast, token])
 
   const handleUpvote = () => {
     let config = {
@@ -70,7 +71,10 @@ const toTitleCase = (s) => {
         isClosable: true,
       })
     })
-    .catch((err) => {console.error(err)})
+    .catch((axiosError) =>{
+      handleErrorToasts(axiosError.response.data.error, toast)
+  }
+  )
   }
 
   const handleDownvote = () => {
@@ -97,7 +101,10 @@ const toTitleCase = (s) => {
         isClosable: true,
       })
     })
-    .catch((err) => {console.error(err)})
+    .catch((axiosError) =>{ 
+      handleErrorToasts(axiosError.response.data.error, toast)
+  }
+  )
   }
 
 const handleDelete = () => {
@@ -122,7 +129,10 @@ const handleDelete = () => {
       })
     })
     .then(() => {router.push('/dashboard')}) 
-    .catch((err) => {console.error(err)})
+    .catch((axiosError) =>{ 
+      handleErrorToasts(axiosError.response.data.error, toast)
+  }
+  )
   }
   else{
     toast({

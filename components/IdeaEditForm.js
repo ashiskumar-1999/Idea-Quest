@@ -16,6 +16,7 @@ import {
   ModalCloseButton,
   useToast
 } from "@chakra-ui/react"
+import { handleErrorToasts } from "../utils/error.utils"
 import CustomButton from "./CustomButton"
 
 
@@ -71,27 +72,21 @@ const IdeaEditForm = ({ editIdeaIsOpen, editIdeaOnClose }) => {
       data,
       config
     ) .then((response) =>
-response.data.success.statusCode ?
-      
+response.data.success.statusCode &&
         toast({
           title: 'Updated Successfully',
           position: 'bottom-right',
           status: 'success',
           duration: 2000,
           isClosable: true,
-        }):
-      toast({
-        title: 'Error while Updating the idea.',
-        /* description: "You are not autherized to delete this Idea", */
-        position: 'bottom-right',
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
-      }) )
+        }))
       .then(() => {
       editIdeaOnClose()
       router.push('/dashboard')})
-      .catch((err) => console.log(err))
+      .catch((axiosError) =>{
+        handleErrorToasts(axiosError.response.data.error, toast)
+    }
+    )
   }
 
   return (

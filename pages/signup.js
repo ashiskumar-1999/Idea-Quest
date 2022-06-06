@@ -3,6 +3,7 @@ import { Box, FormControl, FormLabel, Input, Image, useToast } from "@chakra-ui/
 import FormCard from "../components/FormCard"
 import PageLayout from "../components/PageLayout"
 import CustomButton from "../components/CustomButton"
+import { handleErrorToasts } from "../utils/error.utils"
 import axios from "axios"
 import {useRouter} from 'next/router'
 import { useEffect } from "react/cjs/react.production.min"
@@ -15,7 +16,7 @@ const SignupForm = () => {
   const [password, setPassword] = useState("")
   const toast = useToast()
   const router = useRouter()
-
+  
   const handleSignup = () => {
       axios.post(
       "https://ideas-iq.herokuapp.com/api/auth/signup",
@@ -37,8 +38,10 @@ const SignupForm = () => {
         })
          router.push('/signin')
     })
-    .catch((err) => console.error(err))
-    
+    .catch((axiosError) =>{ console.log(axiosError.response.data.error.msg)
+        handleErrorToasts(axiosError.response.data.error, toast)
+    }
+    )
   }
     
   return (

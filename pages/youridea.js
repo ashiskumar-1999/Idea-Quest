@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import { Alert, AlertIcon, AlertTitle, SimpleGrid } from '@chakra-ui/react'
+import { Box,SimpleGrid,Heading } from '@chakra-ui/react'
 import {useRouter} from "next/router"
 import axios from 'axios'
 import PageLayout from '../components/PageLayout'
@@ -20,14 +20,7 @@ const YourIdea = () => {
       )
       .then(function (response) {
         console.log("My idea:",response.data.success.data)
-        response.data.success.data.length === 0 ?
-         <Alert status='info'>
-        <AlertIcon />
-        <AlertTitle>
-        You have nt created any ideas yet.
-        </AlertTitle>
-      </Alert>
-      : setData(response.data.success.data)
+         setData(response.data.success.data)
       })
       .catch((err) => {console.error(err)})
   
@@ -38,7 +31,8 @@ const YourIdea = () => {
     <PageLayout isDirection>
       <Navbar />
       <SimpleGrid columns={[1,1,2,2,3]} spacing={10}>
-      {data && data.map((d) => (
+      {data.length === 0 ? <Box w="100vw" textAlign="center" m="15px"><Heading fontSize="3xl"> You have not created any ideas yet.</Heading></Box> : 
+       data.map((d) => (
           <IdeaviewButton key={d._id} title={d.title} description={d.desc}  upvotes={d.upvotes}
           downvotes={d.downvotes} onClick={() => {router.push(d._id)}}/>
       ))}

@@ -2,6 +2,7 @@ import React from "react";
 import {
   Box,
   Divider,
+  Flex,
   Heading,
   HStack,
   Text,
@@ -20,17 +21,20 @@ const IdeaViewPage = ({
   onDownvote,onDelete
 }) => {
   return (
-    <VStack
-      px="10px"
-      py="30px"
-      border="1px"
-      borderColor="#D6E4DF"
+    <Box
+      w="100%"
+      h={["300px","300px","320px","300px","100%"]}
+      p={["20px","20px","30px","30px","30px"]}
+      mt={["20px","20px","30px","30px","30px"]}
+      
+      alignItems="baseline"
       borderRadius="10px"
-      bg="#D6E4DF"
-      /* 
-      bgGradient="linear(to-t, #ffffff, #D6E4DF)" */
+      borderColor="#F6EFEF"
+      boxShadow="md"
+      _focus={{ borderColor: "none" }}
+      _active={{ bg: "none" }}
     >
-      <HStack spacing={700} py="10px">
+      <Flex direction="row" textAlign="left" w={"100%"} justifyContent="space-between" mb="10px">
         <Box>
           <Heading fontSize={["2xl", "2xl", "3xl", "3xl", "4xl"]}>
             {title}
@@ -56,21 +60,23 @@ const IdeaViewPage = ({
             onClick={onEdit}
           />
         </HStack>
-      </HStack>
+      </Flex>
       <Divider orientation="horizontal" />
       <Box w="100%" textAlign="left" py="20px">
         <Heading fontSize={["lg", "xl", "2xl", "3xl", "3xl"]}>
           Description
         </Heading>
-        <Text textAlign="left">{desc}</Text>
+        <Text textAlign="left" fontSize={["lg", "xl", "xl", "xl", "xl"]}>{desc}</Text>
       </Box>
+      {solvedProblem? 
       <Box w="100%" textAlign="left" py="20px">
-        <Heading fontSize={["lg", "lg", "xl", "xl", "2xl"]} textAlign="left">
+        <Heading fontSize={["lg", "xl", "2xl", "3xl", "3xl"]} textAlign="left">
           Problems that you are trying to solve?
         </Heading>
-        <Text textAlign="left">{solvedProblem}</Text>
+        <Text textAlign="left" fontSize={["lg", "xl", "xl", "xl", "xl"]}>{solvedProblem}</Text> 
       </Box>
-    </VStack>
+      : null}
+    </Box>
   );
 };
 
